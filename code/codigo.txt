@@ -1,1 +1,13 @@
-AQUÍ ESTARÁ EL CÓDIGO CON EL QUE TRABAJAREMOS YA QUE EL CLIPS NO DEJA GUARDAR EL ARCHIVO CON EL CÓDIGO
+(deftemplate caracteristicas
+	(slot gama)
+	(slot marca)
+	(slot modelo)
+	(slot pulgadas)
+	(multislot RAM)
+	(multislot ROM)
+	(slot bateria)
+	(slot camara)
+	(slot SO)
+	(multislot color)
+	(multislot precio)
+)
