@@ -62,3 +62,52 @@
 
 	(caracteristicas (gama BAJA) (marca BQ) (modelo "E5") (pulgadas 5) (RAM 1GB 2GB) (ROM 16GB) (bateria 2850) (camara 13) (SO ANDROID) (color NEGRO BLANCO) (precio 50))
 )
+
+(defrule buscar
+	(caracteristicas 
+		(gama ?gama) 
+		(marca XIAOMI)
+		(modelo ?modelo) 
+		(pulgadas ?pulgadas) 
+		(RAM $?ram) 
+		(ROM $?rom) 
+		(bateria ?bateria) 
+		(camara ?camara) 
+		(SO ?so) 
+		(color $?color) 
+		(precio $?precio) 
+	)
+=>
+;(printout t "Introduzca la marca:") 
+;(bind ?marca (read))
+(printout t "------------------------" crlf)
+(printout t "Moviles: XIAOMI " 
+	" 
+	de Gama: " ?gama 
+	" 
+	Modelo: " ?modelo 
+	" 
+	Pulgadas: " ?pulgadas 
+	" 
+	RAM: " ?ram
+	" 
+	ROM: " ?rom
+	" 
+	Bateria: " ?bateria
+	" 
+	Camara: " ?camara
+	"
+	SO: " ?so
+	" 
+	Color: " ?color
+	"
+	Precio: " ?precio
+	 crlf)
+)
+
+
+
+
+
+
+
