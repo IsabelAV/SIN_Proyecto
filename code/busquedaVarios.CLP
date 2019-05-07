@@ -61,40 +61,43 @@
 	(caracteristicas (gama BAJA) (marca OUKITEL) (modelo "OK C12 PRO") (pulgadas 6.18) (RAM 2GB) (ROM 16GB) (bateria 3.300) (camara 8) (SO ANDROID) (color NEGRO MORADO DORADO) (precio 99.99))
 
 	(caracteristicas (gama BAJA) (marca BQ) (modelo "E5") (pulgadas 5) (RAM 1GB 2GB) (ROM 16GB) (bateria 2850) (camara 13) (SO ANDROID) (color NEGRO BLANCO) (precio 50))
-	
-	(iniciar)
-)
-
-
-;---------------------------------------------------------------------
-
-(defrule MENU
  (iniciar)
- =>
- (printout t "*************************************************** " crlf)
- (printout t " MARCA" crlf)
- (printout t " SALIR " crlf)
- (printout t " -----escribe la palabra completa en MAYUSCULAS y enter " crlf)
- (printout t "*************************************************** " crlf)
- (printout t "¿POR QUE CARACTERISTICA DESEA BUSCAR? " crlf)
- (assert (respuesta (read)))
 )
 
-(defrule pedir_marca
- ?f<-(respuesta BUSCAR)
+;-------------------------------------------------------------------
+
+
+(defrule MARCA
+ ;?f<-(respuesta BUSCAR)
  =>
- (printout t "MARCA A BUSCAR: ?" crlf)
+ (printout t "MARCA A BUSCAR: " crlf)
  (bind ?marca (read))
- (printout t "GAMA A BUSCAR: ?" crlf)
- (bind ?gama (read))
  ;(retract ?f) ;creo que esto es lo que hacia que solo mostrase uno
- (assert (Buscarhechos ?marca ?gama))
+ (assert (Buscarhechos ?marca))
 )
 
+(defrule GAMA
+ ;?f<-(respuesta BUSCAR)
+ =>
+ (printout t "GAMA A BUSCAR: " crlf)
+ (bind ?gama (read))
+ (assert (Buscarhechos ?gama))
+)
+
+(defrule MODELO
+ ;?f<-(respuesta BUSCAR)
+ =>
+ (printout t "MODELO A BUSCAR: (Introduzca el modelo entre comillas dobles)" crlf)
+ (bind ?modelo (read))
+ (assert (Buscarhechos ?modelo))
+)
 
 
 (defrule BUSCAR
- ?f1<-(Buscarhechos ?marca ?gama)
+(iniciar)
+ ?f1<-(Buscarhechos ?marca)
+ ?f2<-(Buscarhechos ?gama)
+ ?f3<-(Buscarhechos ?modelo)
  ?f<-(caracteristicas 
 		(gama ?gama) 
 		(marca ?marca)
@@ -110,8 +113,8 @@
 	)
  =>
  (printout t "------------------------" crlf)
- (printout t "El movil " ?marca " estÃ¡ en el hecho "?f crlf)
- (printout t "Moviles: XIAOMI " 
+ (printout t "El movil " ?marca " esta en el hecho "?f crlf)
+ (printout t "Moviles: " ?marca
 	" 
 	de Gama: " ?gama 
 	" 
@@ -132,20 +135,4 @@
 	Color: " ?color
 	"
 	Precio: " ?precio
-	 crlf)
- ;(refresh MENU) ;PARA ACTIVAR Y EJECUTAR LA REGLA MENU
-)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	 crlf))
