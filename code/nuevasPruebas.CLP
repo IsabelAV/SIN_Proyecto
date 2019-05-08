@@ -61,50 +61,58 @@
 	(caracteristicas (gama BAJA) (marca OUKITEL) (modelo "OK C12 PRO") (pulgadas 6.18) (RAM 2GB) (ROM 16GB) (bateria 3.300) (camara 8) (SO ANDROID) (color NEGRO MORADO DORADO) (precio 99.99))
 
 	(caracteristicas (gama BAJA) (marca BQ) (modelo "E5") (pulgadas 5) (RAM 1GB 2GB) (ROM 16GB) (bateria 2850) (camara 13) (SO ANDROID) (color NEGRO BLANCO) (precio 50))
- (iniciar)
+
+	(iniciar)
 )
 
-;-------------------------------------------------------------------
 
+(defrule pedir_caracteristicas
+	(iniciar)
+	=>
+	(printout t "ESCRIBE SI O NO: " crlf)
+	(printout t "¿Quiere buscar por marca?: " crlf)
+	(bind ?pedirMarca (read))
+	(printout t "¿Quiere buscar por gama?: " crlf)
+	(bind ?pedirGama(read))
+	(printout t "¿Quiere buscar por SO?: " crlf)
+	(bind ?pedirSO(read))
 
-(defrule MARCA
- ;?f<-(respuesta BUSCAR)
- =>
+	(assert (comprobarSO ?pedirSO))
+	(assert (comprobargama ?pedirGama))
+	(assert (comprobarmarca ?pedirMarca))
+)
+
+(defrule COMPRUEBAMARCA
+ ?f1<- (comprobarmarca ?pedirMarca)
+ (test (neq ?pedirMarca NO))		
+=>
  (printout t "MARCA A BUSCAR: " crlf)
  (bind ?marca (read))
- ;(retract ?f) ;creo que esto es lo que hacia que solo mostrase uno
- (assert (Buscarhechos ?marca))
+ (assert (BuscarMarca ?marca))
 )
 
-(defrule GAMA
- ;?f<-(respuesta BUSCAR)
+(defrule COMPRUEBAGAMA
+ ?f1<- (comprobargama ?pedirGama)
+ (test (neq ?pedirGama NO))
  =>
  (printout t "GAMA A BUSCAR: " crlf)
  (bind ?gama (read))
- (assert (comprobarhechos ?gama))
+ (assert (BuscarGama ?gama))
 )
 
-(defrule MODELO
- ;?f<-(respuesta BUSCAR)
+(defrule COMPRUEBASO
+ ?f1<- (comprobarSO ?pedirSO)
+ (test (neq ?pedirSO NO))
  =>
- (printout t "MODELO A BUSCAR: (Introduzca el modelo entre comillas dobles)" crlf)
- (bind ?modelo (read))
- (assert (Buscarhechos ?modelo))
-)
-
-(defrule COMPRUEBA
- ?f1<- (comprobarhechos ?gama)
- (test (neq ?gama x))		
-=>
- (printout t "Gama vale: "?gama)
- (assert (Buscarhechos ?gama))
+ (printout t "SO A BUSCAR: " crlf)
+ (bind ?so (read))
+ (assert (BuscarSO ?so))
 )
 
 (defrule BUSCAR
-(iniciar)
- ?f1<-(Buscarhechos ?marca)
- ?f2<-(Buscarhechos ?gama)
- ;?f3<-(Buscarhechos ?modelo)
+ ?f1<-(BuscarMarca ?marca)
+ ?f2<-(BuscarGama ?gama)
+ ?f3<-(BuscarSO ?so)
  ?f<-(caracteristicas 
 		(gama ?gama) 
 		(marca ?marca)
