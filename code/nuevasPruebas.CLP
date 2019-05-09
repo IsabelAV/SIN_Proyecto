@@ -74,10 +74,13 @@
 	(bind ?pedirMarca (read))
 	(printout t "¿Quiere buscar por gama?: " crlf)
 	(bind ?pedirGama(read))
+	(printout t "¿Quiere buscar por RAM?: " crlf)
+	(bind ?pedirRAM(read))
 	(printout t "¿Quiere buscar por SO?: " crlf)
 	(bind ?pedirSO(read))
 
 	(assert (comprobarSO ?pedirSO))
+	(assert (comprobarRAM ?pedirRAM))
 	(assert (comprobargama ?pedirGama))
 	(assert (comprobarmarca ?pedirMarca))
 )
@@ -109,22 +112,32 @@
  (assert (BuscarSO ?so))
 )
 
+(defrule COMPRUEBARAM
+ ?f1<- (comprobarRAM ?pedirRAM)
+ (test (neq ?pedirRAM NO))
+ =>
+ (printout t "RAM A BUSCAR: (INDICA LA UNIDAD DE MEDIDA [EJ: 4GB]) " crlf)
+ (bind ?ram (read))
+ (assert (BuscarRAM ?ram))
+)
+
 (defrule BUSCAR
  ?f1<-(BuscarMarca ?marca)
  ?f2<-(BuscarGama ?gama)
  ?f3<-(BuscarSO ?so)
+ ?f4<-(BuscarRAM $?ram)
  ?f<-(caracteristicas 
 		(gama ?gama) 
 		(marca ?marca)
 		(modelo ?modelo) 
 		(pulgadas ?pulgadas) 
-		(RAM $?ram) 
-		(ROM $?rom) 
+		(RAM $? $?ram $?) 
+		(ROM $? $?rom $?) 
 		(bateria ?bateria) 
 		(camara ?camara) 
 		(SO ?so) 
-		(color $?color) 
-		(precio $?precio) 
+		(color $? $?color $?) 
+		(precio $? $?precio $?) 
 	)
  =>
  (printout t "------------------------" crlf)
