@@ -1,3 +1,4 @@
+;Declaración de hechos
 (deffacts moviles_almacen
 	(caracteristicas (gama ALTA) (marca SAMSUNG) (modelo "GALAXY S10+") (pulgadas 6.4) (RAM 8GB 12GB) (ROM 128GB 512GB 1TB) (bateria 4.100) (camara 12) (SO ANDROID) (color NEGRO BLANCO) (precio 1099 1259 1609))
 

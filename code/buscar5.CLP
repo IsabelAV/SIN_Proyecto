@@ -1,3 +1,5 @@
+;Regla que busca por todas las caracteristicas
+;Imprime los moviles que coincidan con la busqueda del usuario
 (defrule BUSCAR5
  (BuscarMarca ?marca)
  (BuscarGama ?gama)

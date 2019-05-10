@@ -1,3 +1,4 @@
+;Declaración de la plantilla de hechos de las caracteristicas de un smartphone
 (deftemplate caracteristicas
 	(slot gama (type SYMBOL) (default ?DERIVE) (allowed-symbols ALTA MEDIA BAJA))
 	(slot marca (type SYMBOL) (default ?DERIVE))
